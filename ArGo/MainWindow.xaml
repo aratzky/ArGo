@@ -1,0 +1,142 @@
+﻿<Window x:Class="ArGo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArGo"
+        mc:Ignorable="d"
+        Title="ArGo Bitcoin Wallet" Height="450" Width="700">
+    <Grid>
+        <Frame NavigationUIVisibility="Hidden" x:Name="MainFrame" />
+        <StackPanel>
+            <!--Menu-->
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="_File">
+                        <MenuItem x:Name="OpenWallet" Click="OpenWallet_Click" Header="_Open">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/open.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Click="New_Restore_Click" Header="_New/Restore">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/add-new.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Click="Backup_Wallet_Click" x:Name="Backup_Wallet" Header="_Backup Wallet">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/save.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Click="Delete_Click" x:Name="Delete" Header="_Delete">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/delete.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Click="Exit_Click" x:Name="Exit" Header="_Exit">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/exit.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem x:Name="Wallet" Header="_Wallet">
+                        <MenuItem Click="privateKeys_Click" x:Name="privateKeys" Header="_Private Keys">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/key.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem x:Name="Tools" Header="_Tools">
+                        <MenuItem Click="sign_Message_Click" x:Name="sign_Message" Header="_Sign message">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/sign.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Click="MenuItem_Click" Header="_Verify message">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/verify.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Click="Addresses_Click" x:Name="Addresses" Header="_Addresses">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/book.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Help">
+                        <MenuItem Click="About_Click" x:Name="About" Header="_About">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/about.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="_Official Website">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/link.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Report Bug">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/report.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="_Donate">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/icons/donate.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+
+            <!--Panel-->
+            <DockPanel Background="#DDDDDD">
+                <Grid DockPanel.Dock="Top" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="125" Click="OverView_Click" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/icons/home.png" HorizontalAlignment="Left"
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="Overview" Foreground="#FF444B54" FontSize="14.5" FontWeight="Bold"
+                                       FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Click="Send_Click" Width="125" Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/icons/send.png" HorizontalAlignment="Left"
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="Send" Foreground="#FF444B54" FontSize="14.5" FontWeight="Bold"
+                                       FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Click="Recieve_Click" Width="125" Grid.Column="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/icons/recieve.png" HorizontalAlignment="Left"
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="Recieve" Foreground="#FF444B54" FontSize="14.5" FontWeight="Bold"
+                                       FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Click="Transactions_Click" Width="125" Grid.Column="3" FontFamily="Arial">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/icons/transaction.png" HorizontalAlignment="Left"
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="Transactions" Foreground="#FF444B54" FontSize="14.5" FontWeight="Bold"
+                                       FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

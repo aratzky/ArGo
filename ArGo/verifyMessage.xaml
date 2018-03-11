@@ -1,0 +1,29 @@
+﻿<Window x:Class="ArGo.verifyMessage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArGo"
+        mc:Ignorable="d"
+        Title="Verify Message" Height="350" Width="300">
+    <Grid>
+        <StackPanel>
+            <DockPanel Margin="5" Height="110">
+                <TextBlock Width="55" Margin="6" Text="Message" VerticalAlignment="Center" />
+                <TextBox TextWrapping="Wrap" x:Name="message" />
+            </DockPanel>
+            <DockPanel Margin="5" Height="40">
+                <TextBlock Width="55" Margin="6" Text="Address" VerticalAlignment="Center" />
+                <TextBox x:Name="Address" FontSize="10" Height="20" />
+            </DockPanel>
+            <DockPanel Margin="5" Height="110">
+                <TextBlock Width="55" Margin="6" Text="Signature" VerticalAlignment="Center" />
+                <TextBox TextWrapping="Wrap" x:Name="signature" />
+            </DockPanel>
+            <DockPanel Height="20" Margin="74,0,5,0">
+                <Button Click="Verify_Button_Click" x:Name="Verify_Button" Content="Verify" Width="60"
+                        VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

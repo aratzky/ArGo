@@ -1,0 +1,120 @@
+﻿<Window x:Class="ArGo.TxInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArGo"
+        mc:Ignorable="d"
+        Title="TxInfo" Height="400" Width="500">
+    <Grid>
+        <StackPanel>
+            <TextBlock FontFamily="Arial" Margin="3" Text="Transaction Id:" />
+            <TextBox IsReadOnly="True" Text="{Binding Tx.hash}" FontFamily="Arial" Margin="3" />
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Status: " />
+                <TextBlock FontFamily="Arial">
+                    <TextBlock Text="{Binding Confirmations}" />
+                    <TextBlock>  Confirmations</TextBlock>
+                </TextBlock>
+            </DockPanel>
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Date: " />
+                <TextBlock FontFamily="Arial" Text="{Binding Tx.date, StringFormat=\{0:dd-MM-yyyy HH:mm\}}" />
+            </DockPanel>
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Amount: " />
+                <TextBlock FontFamily="Arial" Text="{Binding Tx.value}" />
+            </DockPanel>
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Size: " />
+                <TextBlock FontFamily="Arial" Text="{Binding Tx.size}" />
+            </DockPanel>
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Fee: " />
+                <TextBlock FontFamily="Arial" Text="{Binding Tx.fee}" />
+            </DockPanel>
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Block Height: " />
+                <TextBlock FontFamily="Arial" Text="{Binding Tx.lockTime}" />
+            </DockPanel>
+            <DockPanel Margin="2">
+                <TextBlock FontFamily="Arial" Text="Description: " HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                <TextBox Width="360" x:Name="Description" FontFamily="Arial" Text="{Binding Tx.Description}" />
+                <Button Click="change_Click" x:Name="change" Width="50" Content="Change" HorizontalAlignment="Left" />
+            </DockPanel>
+            <TextBlock FontWeight="Bold" Text="Inputs:" Margin="5,3,0,0" />
+            <DataGrid RowHeaderWidth="0" CanUserAddRows="False" GridLinesVisibility="None" IsReadOnly="True"
+                      AutoGenerateColumns="False" FontFamily="Arial" FontSize="12" ItemsSource="{Binding Tx.inputs}"
+                      Margin="5,2,5,0">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+                           TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Height" Value="13" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="FontFamily" Value="Arial" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                    </Style>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="PaleGreen" />
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="CadetBlue" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="Margin" Value="0 5 0 0" />
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="14*" Header="Address" Binding="{Binding address}" IsReadOnly="False" />
+                    <DataGridTextColumn FontSize="12" FontWeight="Bold" Width="4*" Header="Value"
+                                        Binding="{Binding value}" MaxWidth="300" IsReadOnly="True" />
+                    <DataGridTextColumn Width="2*" Header="Index" Binding="{Binding index}" MaxWidth="110"
+                                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock FontWeight="Bold" Text="Outputs:" Margin="5,6,0,0" />
+            <DataGrid RowHeaderWidth="0" CanUserAddRows="False" GridLinesVisibility="None" IsReadOnly="True"
+                      AutoGenerateColumns="False" FontFamily="Arial" FontSize="12" ItemsSource="{Binding Tx.outputs}"
+                      Margin="5,2,5,0">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+                           TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Height" Value="13" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="FontFamily" Value="Arial" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                    </Style>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="PaleGreen" />
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="CadetBlue" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="Margin" Value="0 5 0 0" />
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="14*" Header="Address" Binding="{Binding address}" IsReadOnly="False" />
+                    <DataGridTextColumn FontSize="12" FontWeight="Bold" Width="4*" Header="Value"
+                                        Binding="{Binding value}" MaxWidth="300" IsReadOnly="True" />
+                    <DataGridTextColumn Width="2*" Header="Index" Binding="{Binding index}" MaxWidth="110"
+                                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+    </Grid>
+</Window>

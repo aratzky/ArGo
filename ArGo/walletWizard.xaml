@@ -1,0 +1,194 @@
+﻿<Window x:Class="ArGo.walletWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArGo"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="ArGo - Wizard" Height="350" Width="450">
+    <Grid>
+        <!--New / Restore Wallet Wizard-->
+        <xctk:Wizard Finish="walletwizard_Finish" x:Name="walletwizard" ExteriorPanelMinWidth="0"
+                     FinishButtonClosesWindow="True" HelpButtonVisibility="Collapsed"
+                     PageChanged="walletwizard_PageChanged">
+
+            <!--Choose Wallet Page-->
+            <xctk:WizardPage x:Name="IntroPage" BackButtonVisibility="Collapsed" Title="Bitcoin Wallet"
+                             Description="Press 'Next' To Create This Wallet or Choose another Wallet.">
+                <xctk:WizardPage.Content>
+                    <Grid>
+                        <DockPanel Height="35" Margin="0,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                            <TextBox x:Name="ChooseTextBox" Width="330" VerticalAlignment="Center" Padding="3"
+                                     Margin="0,0,5,0" />
+                            <Button Click="btnOpenFile_Click" Width="70" Height="24" VerticalAlignment="Center"
+                                    Content="Choose..." HorizontalAlignment="Left" DockPanel.Dock="Right" />
+                        </DockPanel>
+                    </Grid>
+                </xctk:WizardPage.Content>
+            </xctk:WizardPage>
+
+            <!--Keystore Page-->
+            <xctk:WizardPage Background="White" x:Name="Keystore" PageType="Blank"
+                             Title="KeyStore"
+                             PreviousPage="{Binding ElementName=IntroPage}">
+
+                <xctk:WizardPage.Style>
+                    <Style TargetType="{x:Type xctk:WizardPage}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=NewSeed}" Value="True">
+                                <Setter Property="NextPage" Value="{Binding ElementName=NewPasswordPage}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=ExistingSeed}" Value="True">
+                                <Setter Property="NextPage" Value="{Binding ElementName=ExistingSeedPage}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </xctk:WizardPage.Style>
+
+                <xctk:WizardPage.Content>
+                    <Grid Margin="20">
+                        <StackPanel>
+                            <TextBlock Text="KeyStore" HorizontalAlignment="Left" FontSize="14"
+                                       FontFamily="Segoe UI Semibold" Margin="0,0,0,20" />
+                            <TextBlock Margin="10" FontFamily="Segoe UI Semibold">
+                                Do You Want Create a New Seed, or restore wallet<LineBreak />
+                                using an existing seed?
+                            </TextBlock>
+                            <RadioButton x:Name="NewSeed" IsChecked="True" Content="Create A New Seed" Margin="5" />
+                            <RadioButton x:Name="ExistingSeed" Content="I Already Have A Seed " Margin="5" />
+                        </StackPanel>
+                    </Grid>
+                </xctk:WizardPage.Content>
+
+            </xctk:WizardPage>
+
+            <!--New Password Page-->
+            <xctk:WizardPage CanSelectNextPage="False" Background="White" x:Name="NewPasswordPage" PageType="Blank"
+                             CanFinish="False"
+                             NextPage="{Binding ElementName=NewSeedPage}" PreviousPage="{Binding ElementName=Keystore}">
+                <Grid Margin="20">
+                    <StackPanel>
+                        <TextBlock Margin="50,25,0,10">
+                            Choose A Password To encrypt Your Wallet<LineBreak />
+                            Make Sure To remember This Password, You Can restore <LineBreak />
+                            Your Wallet using Password And Seed
+                        </TextBlock>
+                        <DockPanel Height="60" Margin="0,10,0,0">
+                            <Image Width="50" Height="60" Source="pack://application:,,,/icons/password.png"
+                                   HorizontalAlignment="Left" />
+                            <StackPanel>
+                                <DockPanel Margin="0,6,6,6">
+                                    <TextBlock Width="130" Text="Password: " HorizontalAlignment="Left"
+                                               FontFamily="Segoe UI Semibold" />
+                                    <PasswordBox PasswordChanged="NewSeedPasswordBox1_PasswordChanged"
+                                                 x:Name="NewSeedPasswordBox1" Width="170" HorizontalAlignment="Left" />
+                                </DockPanel>
+                                <DockPanel Margin="0,6,6,6">
+                                    <TextBlock Width="130" Text="Confirm Password: " HorizontalAlignment="Left"
+                                               FontFamily="Segoe UI Semibold" />
+                                    <PasswordBox PasswordChanged="NewSeedPasswordBox2_PasswordChanged"
+                                                 x:Name="NewSeedPasswordBox2" Width="170" HorizontalAlignment="Left" />
+                                </DockPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+
+            </xctk:WizardPage>
+
+            <!--New Seed Page-->
+            <xctk:WizardPage x:Name="NewSeedPage" Background="White" PageType="Blank" CanFinish="True"
+                             CanSelectNextPage="False" BackButtonVisibility="Collapsed" CanCancel="False">
+                <Grid Margin="20">
+                    <StackPanel>
+                        <TextBlock Text="Your Wallet Generation seed is:" Margin="50,0,0,6"
+                                   FontFamily="Segoe UI Semibold" />
+                        <DockPanel Height="60">
+                            <Image Width="50" Height="60" Source="pack://application:,,,/icons/seed_image.png"
+                                   HorizontalAlignment="Left" />
+                            <TextBox TextWrapping="Wrap" x:Name="NewSeedTextBox" />
+                        </DockPanel>
+                        <DockPanel Height="35" Margin="0,12,0,0">
+                            <TextBlock>
+                                Please Save These 15 Words On Paper, This Seed Alow You<LineBreak />
+                                To Recover Your Wallet
+                            </TextBlock>
+                        </DockPanel>
+                        <DockPanel Height="20" Margin="0,8,0,0">
+                            <TextBlock Text="WARNING:" FontFamily="Segoe UI Semibold" />
+                        </DockPanel>
+                        <DockPanel Margin="40,0,0,0">
+                            <TextBlock>
+                                Never Type your Seed In Website<LineBreak />
+                                Never Disclose It<LineBreak />
+                                Do Not Store it electronicaly
+                            </TextBlock>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </xctk:WizardPage>
+
+            <!--Existing Seed Page-->
+            <xctk:WizardPage Background="White" x:Name="ExistingSeedPage" PageType="Blank" CanSelectNextPage="False"
+                             FinishButtonVisibility="Collapsed"
+                             NextPage="{Binding ElementName=ExistingPasswordPage}"
+                             PreviousPage="{Binding ElementName=Keystore}">
+                <xctk:WizardPage.Content>
+                    <Grid>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBlock Text="Please Enter Your Seed Word In Order To Restore Your Wallet"
+                                       Margin="50,0,0,6" FontFamily="Segoe UI Semibold" />
+                            <DockPanel Height="60">
+                                <Image Source="C:\Users\Fujitsu\source\repos\Bitcoin\Bitcoin\icons\seed_image.png"
+                                       Width="50" Height="60" HorizontalAlignment="Left" />
+                                <TextBox TextChanged="ExistingSeedTextBox_TextChanged" x:Name="ExistingSeedTextBox"
+                                         TextWrapping="Wrap" />
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                </xctk:WizardPage.Content>
+            </xctk:WizardPage>
+
+            <!--Existing Password Page-->
+            <xctk:WizardPage Background="White" x:Name="ExistingPasswordPage" PageType="Blank" CanFinish="True"
+                             FinishButtonVisibility="Collapsed"
+                             PreviousPage="{Binding ElementName=Keystore}">
+                <Grid Margin="20">
+                    <StackPanel>
+                        <TextBlock Margin="50,25,0,10">
+                            Please Enter The Password of Your Old Wallet
+                        </TextBlock>
+                        <DockPanel Height="60" Margin="0,10,0,0">
+                            <Image Width="50" Height="60"
+                                   Source="C:\Users\Fujitsu\Desktop\WPFWalletTest\WPFWalletTest\password.png"
+                                   HorizontalAlignment="Left" />
+                            <StackPanel>
+                                <DockPanel Margin="0,20,6,6">
+                                    <TextBlock Width="100" Text="Password: " HorizontalAlignment="Left"
+                                               FontFamily="Segoe UI Semibold" Panel.ZIndex="-3" Margin="20,0,0,0" />
+                                    <PasswordBox x:Name="ExistingSeedPasswordBox" Width="170"
+                                                 HorizontalAlignment="Left" />
+                                </DockPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </xctk:WizardPage>
+
+            <!--Wallet Has recovered-->
+            <xctk:WizardPage Background="White" x:Name="WalletHasRecovered" PageType="Blank" CanFinish="True"
+                             CanSelectPreviousPage="False">
+                <Grid Margin="20">
+                    <StackPanel>
+                        <TextBlock Margin="50,25,0,10" FontFamily="Segoe UI Semibold">
+                            Your Wallet Has recovered
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </xctk:WizardPage>
+
+        </xctk:Wizard>
+
+    </Grid>
+</Window>
